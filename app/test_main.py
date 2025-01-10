@@ -1,9 +1,9 @@
 from fastapi.testclient import TestClient
+from httpx import WSGITransport
+from main import app
 
-from .main import app
-
-client = TestClient(app)
-
+transport = WSGITransport(app=app)
+client = TestClient(transport=transport)
 
 def test_read_main():
     response = client.get("/")
